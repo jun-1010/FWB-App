@@ -11,7 +11,7 @@
 - Vite + React + TypeScript プロジェクト作成
 - ESLint + Prettier 設定
 - Firebase プロジェクト作成・設定
-- デプロイ環境構築（Vercel）
+- デプロイ環境構築（Firebase Hosting）
 
 ### 1.2 PWA 基盤構築
 
