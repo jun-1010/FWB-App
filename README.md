@@ -1,4 +1,12 @@
-# React + TypeScript + Vite
+# マネコネ - 家計と未来がつながるサービス
+
+家計管理とライフプランをオールインワンで行い、ファイナンシャルウェルビーイングを向上させる Web アプリケーション
+
+## 技術スタック
+
+- React + TypeScript + Vite
+- Firebase (Authentication, Firestore, Hosting)
+- PWA (Progressive Web App)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -36,15 +44,15 @@ export default tseslint.config([
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -65,5 +73,5 @@ export default tseslint.config([
       // other options...
     },
   },
-])
+]);
 ```
