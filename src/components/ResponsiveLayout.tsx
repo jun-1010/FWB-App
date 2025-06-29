@@ -4,15 +4,11 @@ import MainContent from './MainContent';
 
 const ResponsiveLayout: React.FC = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
-  const [showMenu, setShowMenu] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 800;
       setIsMobile(mobile);
-      if (!mobile) {
-        setShowMenu(true);
-      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -20,9 +16,7 @@ const ResponsiveLayout: React.FC = () => {
   }, []);
 
   const handleMenuSelect = () => {
-    if (isMobile) {
-      setShowMenu(false);
-    }
+    // Mobile menu handling can be added here if needed
   };
 
   if (isMobile) {
