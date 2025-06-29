@@ -1,19 +1,15 @@
-import { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ResponsiveLayout from './components/ResponsiveLayout';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <div className="container">
-      <h1>マネコネ</h1>
-      <div className="card">
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
+    <Router>
+      <div className="app">
+        <ResponsiveLayout />
       </div>
-    </div>
+    </Router>
   );
-}
+};
 
 export default App;
