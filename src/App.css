@@ -4,74 +4,110 @@
 }
 
 .app {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-/* Desktop Layout */
-.desktop-layout {
+/**********************************/
+/* Responsive Layout              */
+/**********************************/
+.layout--desktop {
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
-  height: 100vh;
+  justify-content: left;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-  .main {
-    width: calc(100vw - var(--width-sidebar));
-    display: flex;
-    justify-content: left;
-    align-items: center;
+.layout--mobile {
+  background-color: var(--color-green-light);
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-    .content {
-      border-radius: 2rem;
-      width: calc(100% - 2rem);
-      height: calc(100% - 2rem);
-      background-color: var(--color-white);
-      overflow-y: scroll;
-    }
+/**********************************/
+/* Menu                           */
+/**********************************/
+.menu {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  padding: 2rem 1rem 0 2rem;
+  width: var(--width-sidebar);
+}
+
+.menu__header,
+.menu__content,
+.menu__footer {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu__header {
+  .menu__link {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--color-green);
   }
 }
 
-/* Mobile Layout */
-.mobile-layout {
-  .main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: var(--height-tab-bar);
-
-    .content {
-      width: 100%;
-      height: 100%;
-      background-color: var(--color-white);
-    }
-  }
-
-  .tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    height: var(--height-tab-bar);
-
-    /* outline: 1px solid var(--color-light-gray); */
-    background-color: var(--color-white);
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 0 1rem;
-  }
-
-  .tab-bar button {
-    font-size: 0.7rem;
-    width: 5rem;
-    height: 50%;
-    border: none;
-  }
+.menu__content {
+  border-top: 1px solid var(--color-green);
+  border-bottom: 1px solid var(--color-green);
 }
 
-/* スマホ基準で設計し、PCでは幅を制限 */
-@media (min-width: 600px) {
+.menu__title {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--color-green);
+}
+
+.menu__link {
+  padding: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  text-align: left;
+  color: var(--color-black);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu__link--active {
+  color: var(--color-green);
+}
+
+.menu__text {
+  border: none;
+  font-size: 1rem;
+  background-color: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  color: inherit;
+}
+
+/**********************************/
+/* Main Content                  */
+/**********************************/
+.main-content {
+  border-radius: 2rem;
+  background-color: var(--color-green-light);
+  margin: 1rem;
+  padding: 1rem;
+  width: calc(100% - var(--width-sidebar));
+  height: calc(100vh - 2rem);
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.main-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

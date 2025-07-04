@@ -1,42 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../Menu.css';
+import MenuLink from './atoms/MenuLink';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import WalletIcon from '@mui/icons-material/Wallet';
+import PieChartIcon from '@mui/icons-material/PieChart';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import SettingsIcon from '@mui/icons-material/Settings';
 
-interface SidebarMenuProps {
-  onMenuSelect?: () => void;
-}
-
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ onMenuSelect }) => {
-  const handleMenuClick = () => {
-    if (onMenuSelect) {
-      onMenuSelect();
-    }
-  };
-
+const SidebarMenu = () => {
   return (
     <div className="menu">
       <div className="menu__header">
-        <h1>マネコネ</h1>
+        <a href="/" className="menu__title">
+          Moneta
+        </a>
       </div>
       <div className="menu__content">
-        <Link to="/dashboard" onClick={handleMenuClick}>
-          <button>ダッシュボード</button>
-        </Link>
-        <Link to="/income-expense" onClick={handleMenuClick}>
-          <button>収支</button>
-        </Link>
-        <Link to="/assets-liabilities" onClick={handleMenuClick}>
-          <button>資産</button>
-        </Link>
-        <Link to="/budget-plan" onClick={handleMenuClick}>
-          <button>ライフプラン</button>
-        </Link>
+        <MenuLink to="/dashboard" icon={DashboardIcon}>
+          ダッシュボード
+        </MenuLink>
+        <MenuLink to="/income-expense" icon={WalletIcon}>
+          収支
+        </MenuLink>
+        <MenuLink to="/portfolio" icon={PieChartIcon}>
+          資産
+        </MenuLink>
+        <MenuLink to="/budget-plan" icon={TimelineIcon}>
+          ライフプラン
+        </MenuLink>
       </div>
       <div className="menu__footer">
-        <Link to="/settings" onClick={handleMenuClick}>
-          <button>設定</button>
-        </Link>
-        <button>ログアウト</button>
+        <MenuLink to="/settings" icon={SettingsIcon}>
+          設定
+        </MenuLink>
       </div>
     </div>
   );

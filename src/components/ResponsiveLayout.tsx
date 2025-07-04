@@ -15,27 +15,20 @@ const ResponsiveLayout: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleMenuSelect = () => {
-    // Mobile menu handling can be added here if needed
-  };
-
   if (isMobile) {
     return (
-      <div className="mobile-layout">
-        <MainContent />
-        <div className="tab-bar">
-          <button>ダッシュボード</button>
-          <button>収支</button>
-          <button>資産</button>
-          <button>ライフプラン</button>
-        </div>
+      <div className="layout--mobile">
+        <h1>Monetaはスマホではご利用いただけません</h1>
+        <p>
+          申し訳ありません。スマホ画面には未対応のため、タブレット・PCからご利用ください。
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="desktop-layout">
-      <SidebarMenu onMenuSelect={handleMenuSelect} />
+    <div className="layout--desktop">
+      <SidebarMenu />
       <MainContent />
     </div>
   );
