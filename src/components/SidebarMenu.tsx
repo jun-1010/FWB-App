@@ -14,7 +14,7 @@ const SidebarMenu = () => {
         </a>
       </div>
       <div className="menu__content">
-        <MenuLink to="/dashboard" icon={DashboardIcon}>
+        <MenuLink to="/" icon={DashboardIcon}>
           ダッシュボード
         </MenuLink>
         <MenuLink to="/income-expense" icon={WalletIcon}>
