@@ -8,11 +8,7 @@ interface MenuLinkProps {
   icon?: SvgIconComponent;
 }
 
-const MenuLink = ({
-  to,
-  children,
-  icon: Icon = HomeIcon,
-}: MenuLinkProps) => {
+const MenuLink = ({ to, children, icon: Icon = HomeIcon }: MenuLinkProps) => {
   const location = useLocation();
 
   const isActive = (path: string) => {

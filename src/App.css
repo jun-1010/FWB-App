@@ -22,7 +22,7 @@
 }
 
 .layout--mobile {
-  background-color: var(--color-green-light);
+  background-color: var(--color-green-bg);
   padding: 1rem;
   width: 100%;
   max-width: 100%;
@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  padding: 2rem 1rem 0 2rem;
+  padding: 1rem 1rem 0 1rem;
   width: var(--width-sidebar);
 }
 
@@ -53,19 +53,19 @@
   .menu__link {
     font-size: 1.5rem;
     text-decoration: none;
-    color: var(--color-green);
+    color: var(--color-green-darker);
   }
 }
 
 .menu__content {
-  border-top: 1px solid var(--color-green);
-  border-bottom: 1px solid var(--color-green);
+  border-top: 1px solid var(--color-green-darker);
+  border-bottom: 1px solid var(--color-green-darker);
 }
 
 .menu__title {
   font-size: 1.5rem;
   text-decoration: none;
-  color: var(--color-green);
+  color: var(--color-green-darker);
 }
 
 .menu__link {
@@ -81,7 +81,7 @@
 }
 
 .menu__link--active {
-  color: var(--color-green);
+  color: var(--color-green-darker);
 }
 
 .menu__text {
@@ -96,18 +96,86 @@
 /**********************************/
 /* Main Content                  */
 /**********************************/
-.main-content {
-  border-radius: 2rem;
-  background-color: var(--color-green-light);
-  margin: 1rem;
+.layout__contents {
+  margin: 1rem 1rem 1rem 0;
   padding: 1rem;
   width: calc(100% - var(--width-sidebar));
   height: calc(100vh - 2rem);
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  background-color: var(--color-green-bg);
+  border-radius: 1rem;
 }
 
-.main-content::-webkit-scrollbar {
+.layout__contents h2 {
+  text-align: left;
+  font-size: 2rem;
+}
+
+.layout__contents::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content {
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.content__title {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: Bold;
+}
+
+/**********************************/
+/* 貸借対照表/バランスシート          */
+/**********************************/
+.balance-sheet {
+  width: 100%;
+  min-height: 1rem;
+  text-align: left;
+}
+
+.balance-sheet__header {
+  border-radius: 1rem 1rem 0 0;
+  padding: 0.5rem;
+}
+
+.balance-sheet__categories {
+  border-radius: 0 0 1rem 1rem;
+  padding: 0.5rem;
+}
+
+/* 純資産 */
+.balance-sheet__net-worth {
+  background-color: var(--color-gray-light);
+  border-radius: 1rem;
+}
+
+/* 資産 */
+.assets__header {
+  background-color: var(--color-green);
+  border-bottom: 1px solid var(--color-black);
+}
+
+.assets__categories {
+  background-color: var(--color-green-light);
+}
+
+
+
+/* 負債 */
+.liabilities__header {
+  background-color: var(--color-orange);
 }

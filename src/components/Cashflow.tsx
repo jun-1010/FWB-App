@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IncomeExpense: React.FC = () => {
+const Cashflow: React.FC = () => {
   return (
     <div>
       <h1>収入＆支出</h1>
@@ -11,4 +11,4 @@ const IncomeExpense: React.FC = () => {
   );
 };
 
-export default IncomeExpense;
+export default Cashflow;

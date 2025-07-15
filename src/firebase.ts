@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 // Firebase設定
 const firebaseConfig = {
@@ -16,5 +16,27 @@ const app = initializeApp(firebaseConfig);
 
 // Firestore初期化
 export const db = getFirestore(app);
+
+/**
+ * 指定ユーザー・年月・liquid資産IDのデータを更新（新規作成も可）
+ * @param userId ユーザーID
+ * @param yearMonth 年月（例: '2025-07'）
+ * @param liquidId 資産ID（例: 'PayPay'など）
+ * @param data 保存するデータ
+ */
+export async function updateLiquidAsset(
+  userId: string,
+  yearMonth: string,
+  liquidId: string,
+  data: {
+    type: string;
+    label: string;
+    value: number;
+    description?: string;
+  }
+) {
+  const ref = doc(db, 'users', userId, 'assets', yearMonth, 'liquid', liquidId);
+  await setDoc(ref, data, { merge: true });
+}
 
 export default app;

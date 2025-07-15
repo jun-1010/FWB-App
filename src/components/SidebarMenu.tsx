@@ -17,10 +17,10 @@ const SidebarMenu = () => {
         <MenuLink to="/" icon={DashboardIcon}>
           ダッシュボード
         </MenuLink>
-        <MenuLink to="/income-expense" icon={WalletIcon}>
+        <MenuLink to="/cashflow" icon={WalletIcon}>
           収支
         </MenuLink>
-        <MenuLink to="/portfolio" icon={PieChartIcon}>
+        <MenuLink to="/assets" icon={PieChartIcon}>
           資産
         </MenuLink>
         <MenuLink to="/budget-plan" icon={TimelineIcon}>
