@@ -51,7 +51,6 @@
 
 .menu__header {
   .menu__link {
-    font-size: 1.5rem;
     text-decoration: none;
     color: var(--color-green-darker);
   }
@@ -152,9 +151,42 @@
   padding: 0.5rem;
 }
 
+.balance-sheet__header-title {
+  font-weight: bold;
+}
+
+.balance-sheet__header-description {
+  color: var(--color-gray);
+}
+
 .balance-sheet__categories {
   border-radius: 0 0 1rem 1rem;
-  padding: 0.5rem;
+}
+
+.balance-sheet__category {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
+
+.balance-sheet__item {
+  padding: 0.2rem 2rem;
+  font-weight: bold;
+  display: flex;
+  gap: 1rem;
+}
+
+.editable-form {
+  display: block;
+  width: 10rem;
+  height: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 0.9px solid var(--color-gray);
+  padding: 0.1rem;
+}
+
+.editable-form--amount {
+  text-align: right;
 }
 
 /* 純資産 */
@@ -173,7 +205,9 @@
   background-color: var(--color-green-light);
 }
 
-
+.assets__item {
+  background-color: var(--color-green-lighter);
+}
 
 /* 負債 */
 .liabilities__header {

@@ -1,5 +1,6 @@
 import React from 'react';
-import EditableSpan from './atoms/EditableSpan';
+import EditableForm from './atoms/EditableForm';
+import NewForm from './atoms/NewForm';
 
 // 型定義
 interface AssetItem {
@@ -164,41 +165,61 @@ const calculateTotalLiabilities = (items: AssetItem[]): number => {
 
 const Assets: React.FC = () => {
   const [assetsData, setAssetsData] = React.useState<MonthlyAssets>(initialAssetsData);
-  const [editingItem, setEditingItem] = React.useState<{
-    id: string;
-    field: 'label' | 'amount';
-  } | null>(null);
-  const [editValue, setEditValue] = React.useState<string>('');
 
   const totalAssets = calculateTotalAssets(assetsData.items);
   const totalLiabilities = calculateTotalLiabilities(assetsData.items);
   const netWorth = totalAssets - totalLiabilities;
 
-  // 編集開始（対象項目の設定）
-  const handleEditStart = (itemId: string, field: 'label' | 'amount', currentValue: string) => {
-    setEditingItem({ id: itemId, field });
-    setEditValue(currentValue);
+  // tabIndexを計算する関数
+  //
+  // カテゴリ全体で連続したtabIndexを生成する
+  // 例: cash(3アイテム) → insurance(1アイテム) → investment(1アイテム) の場合
+  // cash: tabIndex 1,2,3,4,5,6 (3アイテム × 2フィールド)
+  // insurance: tabIndex 7,8 (1アイテム × 2フィールド)
+  // investment: tabIndex 9,10 (1アイテム × 2フィールド)
+  //
+  // 引数例:
+  // calculateTabIndex('cash', 0, 'label') → 1 (cashの1番目のアイテムのラベル)
+  // calculateTabIndex('cash', 0, 'amount') → 2 (cashの1番目のアイテムの金額)
+  // calculateTabIndex('cash', 1, 'label') → 3 (cashの2番目のアイテムのラベル)
+  // calculateTabIndex('insurance', 0, 'label') → 7 (insuranceの1番目のアイテムのラベル)
+  const calculateTabIndex = (categoryId: string, itemIndex: number, field: 'label' | 'amount'): number => {
+    const assetCategories = CATEGORIES.filter(category => category.type === 'asset');
+    const currentCategoryIndex = assetCategories.findIndex(cat => cat.id === categoryId);
+
+    if (currentCategoryIndex === -1) return 0;
+
+    // 現在のカテゴリより前のカテゴリのアイテム数を合計
+    // 例: insuranceの場合、cashの3アイテム分を合計
+    let previousItemsCount = 0;
+    for (let i = 0; i < currentCategoryIndex; i++) {
+      const category = assetCategories[i];
+      const categoryItems = assetsData.items.filter(item => item.categoryId === category.id);
+      previousItemsCount += categoryItems.length;
+    }
+
+    // ベースインデックスを計算
+    // 例: insuranceの場合、3(previousItemsCount) * 2 + 0(itemIndex) * 2 = 6
+    const baseIndex = previousItemsCount * 2 + itemIndex * 2;
+
+    // フィールドに応じて+1（label）または+2（amount）
+    // 例: insuranceの場合、baseIndex=6なので
+    // label: 6 + 1 = 7, amount: 6 + 2 = 8
+    return field === 'label' ? baseIndex + 1 : baseIndex + 2;
   };
 
-  // 編集値の変更
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditValue(e.target.value);
-  };
-
-  // 編集終了（保存）
-  const handleEditEnd = () => {
-    if (!editingItem) return;
-
+  // アイテムの更新
+  const handleItemUpdate = (itemId: string, field: 'label' | 'amount', newValue: string) => {
     setAssetsData(prev => ({
       ...prev,
       items: prev.items.map(item => {
-        if (item.id === editingItem.id) {
+        if (item.id === itemId) {
           const updatedItem = { ...item, updatedAt: new Date().toISOString() };
 
-          if (editingItem.field === 'label') {
-            updatedItem.label = editValue;
-          } else if (editingItem.field === 'amount') {
-            const amount = parseInt(editValue.replace(/[^\d]/g, ''), 10);
+          if (field === 'label') {
+            updatedItem.label = newValue;
+          } else if (field === 'amount') {
+            const amount = parseInt(newValue.replace(/[^\d]/g, ''), 10);
             if (!isNaN(amount)) {
               updatedItem.amount = amount;
             }
@@ -209,27 +230,24 @@ const Assets: React.FC = () => {
         return item;
       }),
     }));
-
-    setEditingItem(null);
-    setEditValue('');
   };
 
-  // 編集キャンセル
-  const handleEditCancel = () => {
-    setEditingItem(null);
-    setEditValue('');
-  };
+  // 新規アイテムの追加（ラベル）
+  const handleAddLabel = (categoryId: string, label: string) => {
+    const newItem: AssetItem = {
+      id: `${categoryId}-${Date.now()}`,
+      label,
+      amount: 0, // 初期値は0
+      categoryId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
 
-  // Enterキーで保存、Escapeキーでキャンセル
-  const handleEditKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleEditEnd();
-    } else if (e.key === 'Escape') {
-      handleEditCancel();
-    }
+    setAssetsData(prev => ({
+      ...prev,
+      items: [...prev.items, newItem],
+    }));
   };
-
-  console.log(assetsData);
 
   return (
     <div className="contents">
@@ -250,8 +268,8 @@ const Assets: React.FC = () => {
         </div>
         <div className="balance-sheet balance-sheet__assets">
           <div className="balance-sheet__header assets__header">
-            <p>カテゴリ:金額</p>
-            <p>資産:{totalAssets.toLocaleString()}円</p>
+            <p className="balance-sheet__header-description">カテゴリ:金額</p>
+            <p className="balance-sheet__header-title">資産:{totalAssets.toLocaleString()}円</p>
           </div>
           <div className="balance-sheet__categories assets__categories">
             {CATEGORIES.filter(category => category.type === 'asset').map(category => {
@@ -259,41 +277,36 @@ const Assets: React.FC = () => {
               const categoryItems = assetsData.items.filter(item => item.categoryId === category.id);
 
               return (
-                <div className="assets__category" key={category.id}>
-                  <p>
+                <div key={category.id}>
+                  <div className="balance-sheet__category">
                     {category.label}: {summary.toLocaleString()}円{' '}
-                  </p>
+                  </div>
                   {categoryItems.length > 0 && (
-                    <div style={{ marginLeft: '2rem' }}>
-                      {categoryItems.map(item => (
-                        <div key={item.id}>
+                    <>
+                      {categoryItems.map((item, itemIndex) => (
+                        <div className="balance-sheet__item assets__item" key={item.id}>
                           {/* アイテム名の編集 */}
-                          <EditableSpan
+                          <EditableForm
                             value={item.label}
-                            onEdit={value => handleEditStart(item.id, 'label', value)}
-                            isEditing={editingItem?.id === item.id && editingItem.field === 'label'}
-                            editValue={editValue}
-                            onEditChange={handleEditChange}
-                            onEditEnd={handleEditEnd}
-                            onEditKeyDown={handleEditKeyDown}
+                            onSave={(value: string) => handleItemUpdate(item.id, 'label', value)}
+                            isAmount={false}
+                            tabIndex={calculateTabIndex(category.id, itemIndex, 'label')}
                           />
-                          :{/* 金額の編集 */}
-                          <EditableSpan
+                          {/* 金額の編集 */}
+                          <EditableForm
                             value={item.amount.toLocaleString() + '円'}
-                            onEdit={() => handleEditStart(item.id, 'amount', item.amount.toString())}
-                            isEditing={editingItem?.id === item.id && editingItem.field === 'amount'}
-                            editValue={editValue}
-                            onEditChange={handleEditChange}
-                            onEditEnd={handleEditEnd}
-                            onEditKeyDown={handleEditKeyDown}
+                            onSave={(value: string) => handleItemUpdate(item.id, 'amount', value)}
+                            isAmount={true}
+                            tabIndex={calculateTabIndex(category.id, itemIndex, 'amount')}
                           />
                         </div>
                       ))}
-                      <div>
-                        <button>新規項目を追加</button>
-                      </div>
-                    </div>
+                    </>
                   )}
+                  <div className="balance-sheet__item assets__item">
+                    {/* 新規アイテム追加用 */}
+                    <NewForm placeholder="新規追加" onAdd={label => handleAddLabel(category.id, label)} isAmount={false} />
+                  </div>
                 </div>
               );
             })}
