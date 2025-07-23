@@ -9,6 +9,14 @@
   overflow-x: hidden;
 }
 
+.color--positive {
+  color: var(--color-green-darker);
+}
+
+.color--negative {
+  color: var(--color-orange-darker);
+}
+
 /**********************************/
 /* Responsive Layout              */
 /**********************************/
@@ -138,6 +146,101 @@
 }
 
 /**********************************/
+/* バーグラフ                       */
+/**********************************/
+.bar {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-end;
+}
+
+.bar__month {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bar__month-label {
+  text-align: center;
+}
+
+.bar__month-container {
+  display: flex;
+  justify-content: center;
+}
+
+.bar__button {
+  border: none;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  min-height: 3rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.bar__button:hover {
+  outline: 2px dotted var(--color-green-dark);
+}
+
+.bar__button--selected,
+.bar__button--selected:hover {
+  outline: 2px solid var(--color-green-dark);
+}
+
+.bar__button--empty {
+  background-color: var(--color-gray-light);
+  display: flex;
+  justify-content: center;
+  width: 2rem;
+  opacity: 0.3;
+}
+
+.bar__button--empty:hover {
+  opacity: 0.8;
+  outline: none;
+}
+
+.bar__rectangle {
+  width: 2rem;
+}
+
+.bar__rectangle--assets {
+  background-color: var(--color-green);
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.bar__rectangle--liabilities {
+  background-color: var(--color-orange);
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.bar__rectangle--net-worth {
+  width: 2rem;
+}
+
+.bar__rectangle--net-worth--positive {
+  background-color: var(--color-green-darker);
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.bar__rectangle--net-worth--negative {
+  background-color: var(--color-orange-darker);
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.bar__rectangle--empty {
+  background-color: var(--color-gray-light);
+  opacity: 0.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/**********************************/
 /* 貸借対照表/バランスシート          */
 /**********************************/
 .balance-sheet {
@@ -148,45 +251,54 @@
 
 .balance-sheet__header {
   border-radius: 1rem 1rem 0 0;
-  padding: 0.5rem;
-}
-
-.balance-sheet__header-title {
-  font-weight: bold;
+  padding: 0.5rem 0;
 }
 
 .balance-sheet__header-description {
-  color: var(--color-gray);
+  color: var(--color-gray-dark);
 }
 
 .balance-sheet__categories {
   border-radius: 0 0 1rem 1rem;
 }
 
-.balance-sheet__category {
+.balance-sheet__row {
   padding: 0.5rem 1rem;
-  font-weight: bold;
-}
-
-.balance-sheet__item {
-  padding: 0.2rem 2rem;
   font-weight: bold;
   display: flex;
   gap: 1rem;
+  font-size: 1rem;
 }
 
-.editable-form {
+.balance-sheet__header .balance-sheet__row {
+  padding: 0 1rem;
+}
+
+.balance-sheet__cell {
   display: block;
   width: 10rem;
   height: 100%;
   font-weight: bold;
-  font-size: 1rem;
-  border: 0.9px solid var(--color-gray);
   padding: 0.1rem;
 }
 
-.editable-form--amount {
+.balance-sheet__cell--amount {
   text-align: right;
+}
+
+.balance-sheet__cell--percent {
+  width: 6rem;
+  text-align: right;
+}
+
+/* editable-form */
+.editable-form {
+  border-radius: 0.2rem;
+  border: 0.5px solid var(--color-gray);
+}
+
+.editable-form:hover {
+  cursor: pointer;
 }
 
 /* 純資産 */
@@ -212,4 +324,10 @@
 /* 負債 */
 .liabilities__header {
   background-color: var(--color-orange);
+}
+.liabilities__categories {
+  background-color: var(--color-orange-light);
+}
+.liabilities__item {
+  background-color: var(--color-orange-lighter);
 }

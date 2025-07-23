@@ -1,6 +1,6 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,17 +15,21 @@
 
   --color-green-darker: #1a8c6b; /* 文字や線グラフ */
   --color-green-dark: #84cc7c; /* 棒グラフ */
-  --color-green: #bfecc5; /* バランスシート */
-  --color-green-light: #e5fae8; /* バランスシート */
-  --color-green-lighter: #f3fbf4; /* バランスシート */
+  --color-green: #bfecc5; /* バランスシート header */
+  --color-green-light: #def9e2; /* バランスシート row */
+  --color-green-lighter: #f3fbf4; /* バランスシート item */
 
+  --color-orange-darker: #f46839;
   --color-orange-dark: #e59b82;
   --color-orange: #f8d4c8;
+  --color-orange-light: #ffede6;
+  --color-orange-lighter: #fffaf8;
 
   --color-black: #333;
   --color-gray-dark: #565656;
   --color-gray: #9c9c9c;
-  --color-gray-light: #f5f5f5;
+  --color-gray-light: #f0f0f0;
+  --color-gray-lighter: #f5f5f5;
   --color-white: #fff;
   --accent: #ff9800;
   --width-sidebar: 13rem;

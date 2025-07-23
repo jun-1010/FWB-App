@@ -51,7 +51,7 @@ const EditableForm: React.FC<EditableFormProps> = ({ value, onSave, isAmount = f
   if (isEditing) {
     return (
       <input
-        className={isAmount ? `editable-form editable-form--amount` : `editable-form`}
+        className={isAmount ? `balance-sheet__cell editable-form balance-sheet__cell--amount` : `balance-sheet__cell editable-form`}
         type="text"
         value={editValue}
         onChange={handleEditChange}
@@ -66,14 +66,8 @@ const EditableForm: React.FC<EditableFormProps> = ({ value, onSave, isAmount = f
 
   return (
     <span
-      className={isAmount ? `editable-form editable-form--amount` : `editable-form`}
+      className={isAmount ? `balance-sheet__cell editable-form balance-sheet__cell--amount` : `balance-sheet__cell editable-form`}
       onClick={handleEditStart}
-      onMouseEnter={e => {
-        e.currentTarget.style.backgroundColor = '#f8f9fa';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.backgroundColor = 'transparent';
-      }}
       tabIndex={tabIndex}
     >
       {value}

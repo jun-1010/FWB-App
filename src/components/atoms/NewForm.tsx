@@ -38,7 +38,7 @@ const NewForm: React.FC<NewFormProps> = ({ placeholder = '+ 追加', onAdd, isAm
   if (isAdding) {
     return (
       <input
-        className={isAmount ? `editable-form editable-form--amount` : `editable-form`}
+        className={isAmount ? `balance-sheet__cell editable-form balance-sheet__cell--amount` : `balance-sheet__cell editable-form`}
         type="text"
         placeholder={placeholder}
         value={value}
@@ -53,19 +53,13 @@ const NewForm: React.FC<NewFormProps> = ({ placeholder = '+ 追加', onAdd, isAm
 
   return (
     <span
-      className={isAmount ? `editable-form editable-form--amount` : `editable-form`}
+      className={isAmount ? `balance-sheet__cell editable-form balance-sheet__cell--amount` : `balance-sheet__cell editable-form`}
       onClick={handleAddStart}
       style={{
         cursor: 'pointer',
         borderRadius: '4px',
-        color: '#666',
+        color: '#AAA',
         fontStyle: 'italic',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.backgroundColor = '#f8f9fa';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.backgroundColor = 'transparent';
       }}
     >
       {placeholder}
